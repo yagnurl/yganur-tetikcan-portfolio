@@ -1,0 +1,134 @@
+.card {
+  background: var(--card-cream);
+  border: none;
+  border-radius: 32px;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+  transition: transform var(--transition-base) var(--ease-out),
+              box-shadow var(--transition-base) var(--ease-out);
+  user-select: none;
+  will-change: transform;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Color Variants */
+.card[data-color="blue"] {
+  background: var(--card-blue);
+}
+
+.card[data-color="pink"] {
+  background: var(--card-pink);
+}
+
+.card[data-color="mint"] {
+  background: var(--card-mint);
+}
+
+.card[data-color="lavender"] {
+  background: var(--card-lavender);
+}
+
+/* Size Variants */
+.large {
+  width: 420px;
+  min-height: 280px;
+  padding: var(--space-xl);
+}
+
+.medium {
+  width: 280px;
+  min-height: 280px;
+  aspect-ratio: 1;
+}
+
+.small {
+  width: 200px;
+  min-height: 200px;
+  padding: var(--space-lg);
+  aspect-ratio: 1;
+}
+
+/* Typography */
+.title {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--foreground);
+  transition: color var(--transition-base) var(--ease-out);
+}
+
+.large .title {
+  font-family: var(--font-hero);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.medium .title {
+  font-size: 1.5rem;
+}
+
+.small .title {
+  font-size: 1.125rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.description {
+  font-size: 0.9375rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Category Badge */
+.categoryBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  background: var(--category-color);
+  color: white;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* Categorized State */
+.categorized {
+  border-color: var(--category-color);
+  border-width: 2px;
+}
+
+/* Interaction States */
+.hovering {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent),
+              0 8px 24px var(--accent-glow);
+}
+
+.dragging {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent),
+              0 16px 48px var(--accent-glow-strong);
+  cursor: grabbing !important;
+}
+
+/* Cursor States */
+.card {
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}

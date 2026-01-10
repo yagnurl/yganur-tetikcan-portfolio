@@ -1,0 +1,43 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* pointer-events handled by parent for drag */
+}
+
+.svg {
+  pointer-events: none; /* Let clicks pass through if needed, or set auto */
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem; /* Standard Card Padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--foreground);
+}
+
+.title {
+  font-family: var(--font-hero);
+  font-size: 1rem; /* Reduced from 1.25rem */
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.desc {
+  font-family: var(--font-primary);
+  font-size: 0.75rem; /* Reduced from 0.875rem */
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+
+/* Badge removed, style can be deleted or kept unused */
+.badge {
+  display: none;
+}

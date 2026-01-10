@@ -1,0 +1,60 @@
+.dropZone {
+  position: relative;
+  padding: 8px 20px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-base) var(--ease-out);
+  user-select: none;
+  border: none;
+  height: auto;
+  width: auto;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  transition: color var(--transition-base) var(--ease-out);
+}
+
+/* Hover State */
+.dropZone:hover {
+  background: var(--gray-800);
+}
+
+.dropZone:hover .label {
+  color: var(--gray-300);
+}
+
+/* Drag Over State */
+.dragOver {
+  background: rgba(var(--category-rgb), 0.1);
+  transform: scale(1.05);
+}
+
+.dragOver .label {
+  color: var(--category-color);
+}
+
+/* Active State (Filter On) */
+.active {
+  background: var(--gray-100);
+}
+
+.active .label {
+  color: white;
+}
+
+/* Active + Hover */
+.active:hover {
+  background: var(--gray-200);
+}
+
+/* Count Badge - Hidden for clean look unless needed */
+.count {
+  display: none;
+}

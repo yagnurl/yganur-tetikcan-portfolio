@@ -1,0 +1,31 @@
+{
+  "name": "yganur-tetikcan-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@portabletext/react": "^4.0.3",
+    "@sanity/image-url": "^1.2.0",
+    "framer-motion": "^12.24.7",
+    "next": "^14.2.15",
+    "next-sanity": "^9.12.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-is": "^18.3.1",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9",
+    "eslint-config-next": "^14.2.35",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,40 @@
+.button {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  padding: 12px 20px;
+  background: white;
+  border: none;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base) var(--ease-out);
+  z-index: 1000;
+  font-family: var(--font-primary);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--gray-300);
+}
+
+.locked {
+  background: var(--gray-100);
+}
+
+.locked .label {
+  color: var(--foreground);
+}

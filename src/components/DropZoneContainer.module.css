@@ -1,0 +1,14 @@
+.container {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+  padding: 6px;
+  background: var(--card-cream);
+  border-radius: 99px;
+  box-shadow: var(--shadow-md);
+  height: auto;
+}
