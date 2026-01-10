@@ -9,12 +9,20 @@ export interface PuzzlePieceData {
   category: CardCategory;
   color: CardColor;
   isEmpty?: boolean;
-  type?: 'default' | 'spotify';
+  type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact';
   size: 'small' | 'wide' | 'tall'; // small=1x1, wide=2x1, tall=1x2
   spotifyData?: {
     song: string;
     artist: string;
     status: string;
+  };
+  instagramData?: {
+    handle: string;
+    link: string;
+  };
+  vscoData?: {
+    handle: string;
+    link: string;
   };
 }
 
@@ -24,22 +32,22 @@ export const puzzleData: PuzzlePieceData[] = [
   // 1. Hero (Wide 2x1)
   {
     id: 'hero',
-    title: 'I design interfaces that think back.',
-    description: 'Frontend developer focused on motion.',
+    title: "I am Yağnur. I’m a frontend developer with a keen eye for design and a strong interest in product design. I create visually stunning digital experiences using a variety of technologies and tools, specializing in Next.js and Nuxt.js.",
+    // Description removed as per request
     category: null,
     color: 'cream',
     type: 'default',
     size: 'wide'
   },
-  // 2. Spotify (Wide 2x1)
+  // 2. Spotify (Small 1x1)
   {
     id: 'spotify-card',
     category: 'experiment',
     color: 'cream',
     type: 'spotify',
-    size: 'wide', 
+    size: 'small', // Changed to 1x1
     spotifyData: {
-      status: 'Offline. Last played',
+      status: 'Current Vibe',
       song: "I Don't Belong",
       artist: 'Fontaines D.C.'
     }
@@ -56,10 +64,11 @@ export const puzzleData: PuzzlePieceData[] = [
   // 4. Contact (Tall 1x2)
   {
     id: 'contact',
-    title: 'Say hi',
-    description: 'hello@yourmail.com',
+    title: 'Let’s stay connected!',
+    description: 'I’m always open to sharing ideas and expanding my network.',
     category: null,
     color: 'cream',
+    type: 'contact',
     size: 'tall'
   },
   // 5. Case Craft (Wide 2x1)
@@ -70,21 +79,23 @@ export const puzzleData: PuzzlePieceData[] = [
     color: 'pink',
     size: 'wide'
   },
-  // 6. Experiment (Small 1x1)
+  // 6. Ephesus Card (Small 1x1)
   {
-    id: 'experiment',
-    title: 'Motion is a language.',
-    category: 'design',
-    color: 'lavender',
+    id: 'ephesus-card',
+    category: null,
+    color: 'cream', 
+    type: 'ephesus',
     size: 'small'
   },
-  // 7. Thought (Wide 2x1)
+  // 7. Projects Link (Wide 2x1)
   {
-    id: 'thought',
-    title: 'Drag is not a gimmick.',
-    category: 'experiment',
-    color: 'mint',
-    size: 'wide'
+    id: 'projects-link',
+    title: 'Works',
+    category: 'design',
+    color: 'lavender', // Will be overridden by custom styling
+    type: 'project-link',
+    size: 'wide',
+    description: 'Click to explore'
   },
   // 8. About (Tall 1x2)
   {
@@ -95,20 +106,28 @@ export const puzzleData: PuzzlePieceData[] = [
     color: 'cream',
     size: 'tall'
   },
-  // 9. Extra 1 (Small 1x1)
+  // 9. Instagram (Small 1x1)
   {
-    id: 'extra-1',
-    title: 'Future Project',
-    category: 'experiment',
-    color: 'lavender',
-    size: 'small'
-  },
-  // 10. Extra 2 (Small 1x1)
-  {
-    id: 'extra-2',
-    title: 'More to come',
+    id: 'instagram',
     category: 'design',
-    color: 'pink',
-    size: 'small'
+    color: 'pink', // Placeholder, will override with custom or white
+    type: 'instagram',
+    size: 'small',
+    instagramData: {
+      handle: '@yagnur.ui',
+      link: 'https://instagram.com/yagnur.ui'
+    }
+  },
+  // 10. VSCO (Small 1x1) - Photography
+  {
+    id: 'vsco',
+    category: 'design',
+    color: 'cream',
+    type: 'vsco',
+    size: 'small',
+    vscoData: {
+      handle: '@yagnurl',
+      link: 'https://vsco.co/yagnurl'
+    }
   }
 ];

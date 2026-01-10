@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
+import { motion, PanInfo } from 'framer-motion';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import styles from './PuzzleBoard.module.css';
 import PuzzlePiece from './PuzzlePiece';
 import { puzzleData, PuzzlePieceData } from '@/data/cardData';
-import styles from './PuzzleBoard.module.css';
-import { motion, Reorder } from 'framer-motion'; 
-
-// Using a simpler swapping logic for Bento is tricky because of variable sizes.
-// Framer Motion's Reorder is great for 1D lists, but this is a 2D grid with spans.
-// We'll stick to basic index-based swapping for now.
+import ProjectScatter from './ProjectScatter';
 
 export default function PuzzleBoard() {
   const [items, setItems] = useState<PuzzlePieceData[]>(puzzleData);
   const [draggedId, setDraggedId] = useState<string | null>(null);
+  
+  // Modal State Logic
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const showProjects = searchParams.get('view') === 'projects';
+
   const boardRef = React.useRef<HTMLDivElement>(null);
+
+  const handleCardClick = (id: string) => {
+    if (id === 'projects-link') {
+      // Add ?view=projects to URL without reloading
+      router.push(`${pathname}?view=projects`, { scroll: false });
+    }
+  };
+
+  const closeProjects = () => {
+    // Remove query param
+    router.push(pathname, { scroll: false });
+  };
 
   const handleDragStart = (id: string) => {
     setDraggedId(id);
@@ -79,6 +96,8 @@ export default function PuzzleBoard() {
 
   return (
     <div className={styles.boardContainer}>
+      <ProjectScatter isOpen={showProjects} onClose={closeProjects} />
+      
       <div className={styles.grid} ref={boardRef}>
         {items.map((item, index) => {
           const isWide = item.size === 'wide';
@@ -95,13 +114,15 @@ export default function PuzzleBoard() {
                
                // Data attributes for drag detection passed via spread props
                data-item-id={item.id}
+               onClick={() => handleCardClick(item.id)} // Add click handler
                
                style={{
                   gridColumn: colSpan,
                   gridRow: rowSpan,
                   zIndex: isDragged ? 100 : 1,
                   height: '100%',
-                  width: '100%'
+                  width: '100%',
+                  cursor: 'pointer'
                }}
                drag
                dragConstraints={boardRef}

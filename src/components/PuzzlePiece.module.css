@@ -41,3 +41,402 @@
 .badge {
   display: none;
 }
+
+/* Spotify Card Styles */
+.spotifyContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0; /* Parent has padding, but we might need to reset or adjust */
+}
+
+.spotifyIcon {
+  color: #1DB954; /* Spotify Green */
+  margin-bottom: auto; /* Push content down */
+}
+
+.spotifyStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-primary); /* Assuming Outfit/Sans */
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #55cfaa; /* Lighter Green/Teal from image */
+  margin-bottom: 0.25rem;
+}
+
+.spotifySong {
+  font-family: var(--font-hero); /* Assuming Serif for Title */
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin-bottom: 0.1rem;
+}
+
+/* Instagram Card Styles */
+.instagramContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  text-decoration: none; /* For the link */
+}
+
+.instagramIcon {
+  /* Instagram Gradient */
+  color: #E1306C; /* Fallback */
+}
+
+.instagramHandle {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* VSCO Card Styles */
+.vscoContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.vscoText {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-hero);
+  font-size: 4rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+}
+
+.vscoArrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #1a1a1a;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.vscoContainer:hover .vscoArrow {
+  opacity: 1;
+  transform: translate(2px, 2px);
+}
+
+/* Project Link Card Styles */
+.projectLinkContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #ffff;
+  background-image: radial-gradient(circle, #c0c0c0 1px, transparent 1px);
+  background-size: 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.projectLinkContainer:hover {
+  background-color: #f5f5f5;
+}
+
+.projectArrowContainer {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.projectArrow {
+  color: #1a1a1a;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.projectLinkContainer:hover .projectArrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.worksTitle {
+  font-family: var(--font-hero);
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-align: left;
+}
+
+/* Contact Card Styles */
+.contactBg {
+  /* Used for JS selection */
+}
+
+.contactContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.contactHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.wavingHand {
+  font-size: 2.5rem;
+  width: fit-content;
+  transform-origin: 70% 70%;
+  z-index: 2;
+  position: relative;
+}
+
+.contactContainer:hover .wavingHand {
+  animation: wave 2s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes wave {
+  0% { transform: rotate( 0.0deg) }
+  10% { transform: rotate(14.0deg) } 
+  20% { transform: rotate(-8.0deg) }
+  30% { transform: rotate(14.0deg) }
+  40% { transform: rotate(-4.0deg) }
+  50% { transform: rotate(10.0deg) }
+  60% { transform: rotate( 0.0deg) } 
+  100% { transform: rotate( 0.0deg) }
+}
+
+.contactTitle {
+  font-family: var(--font-hero);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.1;
+  max-width: 100%;
+  letter-spacing: -0.02em;
+}
+
+.contactBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.contactDesc {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  color: #4a4a4a;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+.contactLinksRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-top: 0.5rem;
+}
+
+.contactCheckLinks {
+  color: #1a1a1a;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.contactCheckLinks:hover {
+  border-bottom-color: #1a1a1a;
+}
+
+/* Map Card Styles */
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #e5e7eb;
+}
+
+.mapCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mapMarker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.markerDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+}
+
+.markerPulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+.locationBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.fullImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.projectImageWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  pointer-events: none;
+}
+
+.hoverHint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #666;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  pointer-events: none;
+}
+
+.sketchyUnderline {
+  position: relative;
+  display: inline-block;
+}
+
+.sketchyUnderline::before,
+.sketchyUnderline::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 4px;
+  background: none;
+  border-bottom: 2px solid #E1306C;
+  border-radius: 50% 50% 50% 50% / 20% 20% 80% 80%;
+  opacity: 0.9;
+}
+
+.sketchyUnderline::before {
+  bottom: 1px;
+  transform: rotate(-4deg);
+}
+
+.sketchyUnderline::after {
+  bottom: -2px;
+  transform: rotate(-1deg);
+  border-bottom-width: 2px;
+  border-radius: 50% 50% 50% 50% / 15% 15% 85% 85%;
+}
