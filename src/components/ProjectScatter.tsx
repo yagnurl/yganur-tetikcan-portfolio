@@ -125,25 +125,31 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
     <AnimatePresence>
       {isOpen && (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={styles.modalOverlay} // We might need to add this class or use inline
+            layoutId="projects-link"
+            initial={{ borderRadius: '16px' }}
+            animate={{ borderRadius: 0 }}
+            exit={{ opacity: 1, transition: { duration: 0 } }}
+            className={styles.modalOverlay}
             style={{
                 position: 'fixed',
                 top: 0,
                 left: 0,
-                width: '100vw',
+                width: '100%',
                 height: '100vh',
-                backgroundColor: 'var(--page-bg, rgba(245, 243, 240, 0.95))', // Dynamic background
+                backgroundColor: 'var(--page-bg, rgba(245, 243, 240, 0.95))',
                 zIndex: 9999,
                 overflowY: 'auto',
                 padding: '40px 20px',
                 display: 'flex',
-                alignItems: 'flex-start', // Allow scrolling from top
+                alignItems: 'flex-start',
                 justifyContent: 'center',
-                backdropFilter: 'blur(10px)',
-                transition: 'background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                backdropFilter: 'blur(15px)'
+            }}
+            transition={{
+              type: 'spring',
+              damping: 20,
+              stiffness: 120,
+              mass: 1
             }}
         >
             {/* Close Button */}
@@ -192,9 +198,13 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
                              <motion.div
                                  key={item.id}
                                  className={styles.cell}
-                                 initial={{ opacity: 0, y: 20 }}
+                                 initial={{ opacity: 0, y: 30 }}
                                  animate={{ opacity: 1, y: 0 }}
-                                 transition={{ delay: index * 0.05, duration: 0.4 }}
+                                 transition={{ 
+                                   delay: 0.4 + (index * 0.05), // Wait for modal to expand
+                                   duration: 0.5,
+                                   ease: "easeOut"
+                                 }}
                                  style={{
                                     gridColumn: colSpan,
                                     gridRow: rowSpan,

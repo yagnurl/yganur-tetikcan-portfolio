@@ -74,7 +74,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   font-size: 16px;
-  transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Remove default button/input styles */

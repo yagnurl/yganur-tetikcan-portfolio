@@ -14,7 +14,7 @@ export default function MapCard({ accessToken }: MapCardProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
 
-  // İzmir Saat Kulesi (Clock Tower) - Wikipedia coordinates
+  // İzmir Saat Kulesi (Clock Tower) - Konak
   const IZMIR_LNG = 27.1286678;
   const IZMIR_LAT = 38.4188690;
 
@@ -26,13 +26,13 @@ export default function MapCard({ accessToken }: MapCardProps) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [IZMIR_LNG, IZMIR_LAT],
-      zoom: 18,
-      minZoom: 7,  // Limit zoom out (allows zooming out to see more of Turkey)
-      maxZoom: 30,  // Limit zoom in
-      pitch: 45,
+      center: [IZMIR_LNG, IZMIR_LAT], 
+      zoom: 16, // Focused on the area
+      minZoom: 8,
+      maxZoom: 16,
+      pitch: 45, // Slight tilt for depth
       bearing: -20,
-      interactive: false, // Disable all interactions except scroll zoom
+      interactive: false,
       attributionControl: false
     });
 
@@ -42,43 +42,19 @@ export default function MapCard({ accessToken }: MapCardProps) {
       
       // Enable scroll zoom
       map.current.scrollZoom.enable();
-      
-      // Add 3D building layer
-      const layers = map.current.getStyle().layers;
-      const labelLayerId = layers?.find(
-        (layer: any) => layer.type === 'symbol' && layer.layout?.['text-field']
-      )?.id;
 
-      map.current.addLayer(
-        {
-          id: '3d-buildings',
-          source: 'composite',
-          'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'],
-          type: 'fill-extrusion',
-          minzoom: 15,
-          paint: {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': ['get', 'height'],
-            'fill-extrusion-base': ['get', 'min_height'],
-            'fill-extrusion-opacity': 0.8
-          }
-        },
-        labelLayerId
-      );
+      // Add custom marker for user location
+      const markerEl = document.createElement('div');
+      markerEl.className = styles.mapMarker;
+      markerEl.innerHTML = `
+        <div class="${styles.markerPulse}"></div>
+        <div class="${styles.markerEmoji}">👩‍💻</div>
+      `;
+
+      new mapboxgl.Marker({ element: markerEl })
+        .setLngLat([IZMIR_LNG, IZMIR_LAT])
+        .addTo(map.current);
     });
-
-    // Add custom marker for user location
-    const markerEl = document.createElement('div');
-    markerEl.className = styles.mapMarker;
-    markerEl.innerHTML = `
-      <div class="${styles.markerPulse}"></div>
-      <div class="${styles.markerDot}"></div>
-    `;
-
-    new mapboxgl.Marker({ element: markerEl })
-      .setLngLat([IZMIR_LNG, IZMIR_LAT])
-      .addTo(map.current);
 
     return () => {
       if (map.current) {

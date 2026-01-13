@@ -185,9 +185,7 @@
   cursor: pointer;
 }
 
-.projectLinkContainer:hover {
-  background-color: #f5f5f5;
-}
+
 
 .projectArrowContainer {
   position: absolute;
@@ -339,21 +337,18 @@
 
 .mapMarker {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.markerDot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background: #3b82f6;
-  border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+.markerEmoji {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  z-index: 2;
 }
 
 .markerPulse {
@@ -361,11 +356,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
-  background: rgba(59, 130, 246, 0.3);
+  width: 40px;
+  height: 40px;
+  background: rgba(59, 130, 246, 0.15);
   border-radius: 50%;
   animation: pulse 2s infinite;
+  z-index: 1;
 }
 
 @keyframes pulse {

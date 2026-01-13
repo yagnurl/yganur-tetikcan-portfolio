@@ -79,12 +79,13 @@ export const puzzleData: PuzzlePieceData[] = [
     type: 'contact',
     size: 'tall'
   },
-  // 5. Case Craft (Wide 2x1)
+  // 5. Experience (Wide 2x1)
   {
     id: 'case-craft',
-    title: 'Still not finished.',
+    title: 'Experience',
     category: 'design',
-    color: 'pink',
+    color: 'lavender',
+    type: 'project-link',
     size: 'wide'
   },
   // 6. Ephesus Card (Small 1x1)
@@ -137,5 +138,13 @@ export const puzzleData: PuzzlePieceData[] = [
       handle: '@yagnurl',
       link: 'https://vsco.co/yagnurl'
     }
+  },
+  // 11. Toolbox (Small 1x1)
+  {
+    id: 'toolbox',
+    title: 'Toolbox',
+    category: 'frontend',
+    color: 'mint',
+    size: 'small'
   }
 ];

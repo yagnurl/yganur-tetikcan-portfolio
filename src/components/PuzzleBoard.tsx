@@ -5,6 +5,7 @@ import styles from './PuzzleBoard.module.css';
 import PuzzlePiece from './PuzzlePiece';
 import { puzzleData, PuzzlePieceData } from '@/data/cardData';
 import ProjectScatter from './ProjectScatter';
+import ExperienceModal from './ExperienceModal';
 
 export default function PuzzleBoard() {
   const [items, setItems] = useState<PuzzlePieceData[]>(puzzleData);
@@ -20,17 +21,34 @@ export default function PuzzleBoard() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const showProjects = searchParams.get('view') === 'projects';
+  const showExperience = searchParams.get('view') === 'experience';
+
+  // Scroll Lock Logic
+  React.useEffect(() => {
+    if (showProjects || showExperience) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [showProjects, showExperience]);
 
   const boardRef = React.useRef<HTMLDivElement>(null);
 
   const handleCardClick = (id: string) => {
     if (id === 'projects-link') {
-      // Add ?view=projects to URL without reloading
       router.push(`${pathname}?view=projects`, { scroll: false });
+    } else if (id === 'case-craft') {
+      router.push(`${pathname}?view=experience`, { scroll: false });
     }
   };
 
-  const closeProjects = () => {
+  const closeModals = () => {
     // Remove query param
     router.push(pathname, { scroll: false });
   };
@@ -101,7 +119,8 @@ export default function PuzzleBoard() {
 
   return (
     <div className={styles.boardContainer}>
-      <ProjectScatter isOpen={showProjects} onClose={closeProjects} />
+      <ProjectScatter isOpen={showProjects} onClose={closeModals} />
+      <ExperienceModal isOpen={showExperience} onClose={closeModals} />
       
       <div className={styles.grid} ref={boardRef}>
         {items.map((item, index) => {
@@ -143,9 +162,19 @@ export default function PuzzleBoard() {
                  zIndex: 1000,
                  cursor: "grabbing"
                }}
+               whileTap={{ 
+                 scale: 0.98,
+                 zIndex: 1000
+               }}
                whileHover={{
                  scale: 1, 
                  zIndex: 10
+               }}
+               transition={{
+                 type: 'spring',
+                 damping: 20,
+                 stiffness: 120,
+                 mass: 1
                }}
              >
                <PuzzlePiece

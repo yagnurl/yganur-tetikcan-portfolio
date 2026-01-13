@@ -1,6 +1,6 @@
 .portfolio {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   position: relative;
   background: var(--background);
   /* Removed overflow-y: auto to let the window scroll */

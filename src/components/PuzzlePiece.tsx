@@ -51,9 +51,8 @@ export default function PuzzlePiece({
   const isHero = data.id === 'hero';
   const isEphesus = data.type === 'ephesus';
 
-  let bgColor = '#ffffff'; 
-  if (isSpotify) bgColor = colors[data.color] || '#ffffff';
-  
+ let bgColor = '#ffffff'; 
+  if (isSpotify) bgColor = colors[data.color] || '#ffffff';  
   let borderStyle = '1px solid rgba(0,0,0,0.08)';
   if (isSpotify || isInstagram || isEphesus) borderStyle = 'none';
 
@@ -77,7 +76,7 @@ export default function PuzzlePiece({
   // State for hover effect
   const [isHovered, setIsHovered] = React.useState(false);
 
-  // Custom: Change card bg to cream when hovered if it's a project card
+  // Smooth color shift for card background
   const activeBgColor = (isHovered && data.hoverImages) ? '#f5f3f0' : bgColor;
 
   // Update global background when hovered
@@ -115,9 +114,9 @@ export default function PuzzlePiece({
             backgroundColor: activeBgColor,
             border: borderStyle,
             position: 'relative',
-            overflow: 'visible',
+            overflow: data.hoverImages ? 'visible' : 'hidden',
             zIndex: 1,
-            transition: 'background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+            transition: 'background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1)' // Smoother, longer transition
           }}
         >
             {(isSpotify || isInstagram) && (
@@ -269,7 +268,7 @@ export default function PuzzlePiece({
                          
                          {/* Large WORKS text at bottom left */}
                          <div className={styles.worksTitle}>
-                           WORKS
+                           {data.title?.toUpperCase()}
                          </div>
                       </div>
                   ) : data.type === 'contact' ? (
