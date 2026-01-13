@@ -9,6 +9,11 @@ import ProjectScatter from './ProjectScatter';
 export default function PuzzleBoard() {
   const [items, setItems] = useState<PuzzlePieceData[]>(puzzleData);
   const [draggedId, setDraggedId] = useState<string | null>(null);
+
+  // Sync state with imported data during development (or if data changes)
+  React.useEffect(() => {
+    setItems(puzzleData);
+  }, []);
   
   // Modal State Logic
   const router = useRouter();

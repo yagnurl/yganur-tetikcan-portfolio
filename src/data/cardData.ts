@@ -1,5 +1,6 @@
 export type CardCategory = 'frontend' | 'design' | 'experiment' | null;
 export type CardColor = 'cream' | 'blue' | 'pink' | 'mint' | 'lavender' | 'empty';
+export type CardSize = 'small' | 'wide' | 'tall';
 
 export interface PuzzlePieceData {
   id: string;
@@ -9,8 +10,8 @@ export interface PuzzlePieceData {
   category: CardCategory;
   color: CardColor;
   isEmpty?: boolean;
-  type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact';
-  size: 'small' | 'wide' | 'tall'; // small=1x1, wide=2x1, tall=1x2
+  type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact' | 'project-item';
+  size: CardSize; 
   spotifyData?: {
     song: string;
     artist: string;
@@ -24,7 +25,13 @@ export interface PuzzlePieceData {
     handle: string;
     link: string;
   };
+  hoverImages?: string[];
+  showArrow?: boolean;
+  slug?: string;
+  image?: string;
 }
+
+export type CardData = PuzzlePieceData;
 
 // 10 items for 4x4 Bento Grid (16 units total)
 // 4x Small (1), 4x Wide (2), 2x Tall (2) = 4 + 8 + 4 = 16
@@ -59,7 +66,8 @@ export const puzzleData: PuzzlePieceData[] = [
     category: 'frontend',
     color: 'blue',
     type: 'default',
-    size: 'small'
+    size: 'small',
+
   },
   // 4. Contact (Tall 1x2)
   {
@@ -95,7 +103,7 @@ export const puzzleData: PuzzlePieceData[] = [
     color: 'lavender', // Will be overridden by custom styling
     type: 'project-link',
     size: 'wide',
-    description: 'Click to explore'
+    // Description removed
   },
   // 8. About (Tall 1x2)
   {

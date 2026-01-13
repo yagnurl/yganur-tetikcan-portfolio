@@ -53,7 +53,7 @@ export default function PuzzlePiece({
 
   let bgColor = '#ffffff'; 
   if (isSpotify) bgColor = colors[data.color] || '#ffffff';
-
+  
   let borderStyle = '1px solid rgba(0,0,0,0.08)';
   if (isSpotify || isInstagram || isEphesus) borderStyle = 'none';
 
@@ -69,18 +69,42 @@ export default function PuzzlePiece({
     paddingLeft: '24px'
   } : (data.type === 'project-link' || data.type === 'contact' || isEphesus) ? {
     padding: 0
+  } : data.hoverImages ? {
+    padding: 0 // Remove padding for cards with hover images
   } : {};
+
+
+  // State for hover effect
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  // Custom: Change card bg to cream when hovered if it's a project card
+  const activeBgColor = (isHovered && data.hoverImages) ? '#f5f3f0' : bgColor;
+
+  // Update global background when hovered
+  React.useEffect(() => {
+    if (data.hoverImages) {
+      if (isHovered) {
+        document.documentElement.style.setProperty('--page-bg', '#1a1a1a');
+      } else {
+        document.documentElement.style.setProperty('--page-bg', '#f5f3f0');
+      }
+    }
+  }, [isHovered, data.hoverImages]);
 
   return (
     <div 
       className={styles.container}
+      onPointerEnter={() => setIsHovered(true)}
+      onPointerLeave={() => setIsHovered(false)}
       style={{ 
         width: '100%', 
         height: '100%',
         position: 'relative',
         color: textColor,
         fontFamily: fontFamily,
-        fontWeight: fontWeight
+        fontWeight: fontWeight,
+        cursor: data.hoverImages ? 'pointer' : 'default',
+        overflow: 'visible'
       }}
     >
         <div
@@ -88,11 +112,12 @@ export default function PuzzlePiece({
             width: '100%',
             height: '100%',
             borderRadius: '16px', 
-            backgroundColor: bgColor,
+            backgroundColor: activeBgColor,
             border: borderStyle,
             position: 'relative',
-            overflow: 'hidden',
-            zIndex: 1 
+            overflow: 'visible',
+            zIndex: 1,
+            transition: 'background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
             {(isSpotify || isInstagram) && (
@@ -108,6 +133,53 @@ export default function PuzzlePiece({
                 }} 
               />
             )}
+
+            {/* Hover Floating Images */}
+            {data.hoverImages && data.hoverImages.map((imgSrc, i) => {
+               // Fan effect from bottom-center
+               // Each card rotates and positions to create a fan spread
+               const totalImages = data.hoverImages!.length;
+               const centerIndex = (totalImages - 1) / 2;
+               const angleSpread = 12; // Degrees between each card
+               const rotation = (i - centerIndex) * angleSpread; // -12, 0, 12 for 3 cards
+               
+               // Position cards in a fan from bottom-center
+               // Cards are now horizontal (140x100), stay near bottom
+               const horizontalSpread = (i - centerIndex) * 60; // Spread left/right from center
+               const baseYPos = -60; // Peek out from bottom (60% of 100px height)
+               const yPos = baseYPos - (Math.abs(i - centerIndex) * 8); // Slight arc
+               
+               return (
+                 <motion.img 
+                    key={i}
+                    src={imgSrc}
+                    className={styles.floatingImage}
+                    initial={{ 
+                      y: 0, 
+                      x: 0, 
+                      opacity: 0, 
+                      rotate: 0, 
+                      scale: 0.5
+                    }}
+                    animate={{ 
+                      y: isHovered ? yPos : 0,
+                      x: isHovered ? horizontalSpread : 0,
+                      opacity: isHovered ? 1 : 0,
+                      rotate: isHovered ? rotation : 0,
+                      scale: isHovered ? 1 : 0.5
+                    }}
+                    transition={{ 
+                      type: 'spring', 
+                      damping: 16, 
+                      stiffness: 140, 
+                      delay: i * 0.06 
+                    }}
+                    style={{
+                      transformOrigin: 'bottom center'
+                    }}
+                 />
+               );
+            })}
 
             <div className={styles.content} style={contentStyle}>
                   {data.type === 'spotify' && data.spotifyData ? (
@@ -286,11 +358,77 @@ export default function PuzzlePiece({
                     </>
                   ) : (
                     <>
-                      <h3 className={styles.title}>{data.title}</h3>
-                      {data.description && <p className={styles.desc}>{data.description}</p>}
+                      {data.hoverImages ? (
+                        <>
+                          <motion.h3 
+                            className={styles.title}
+                            initial={false}
+                            animate={{ 
+                              y: isHovered ? -25 : 200, // Slide between top and bottom
+                              scale: isHovered ? 1.1 : 1,
+                              rotate: isHovered ? -3 : 0,
+                              skewY: isHovered ? -2 : 0
+                            }}
+                            transition={{ 
+                              type: 'spring', 
+                              damping: 12, 
+                              stiffness: 80,
+                              duration: 1
+                            }}
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 8,
+                              right: 0,
+                              bottom: 8,
+                              margin: 0,
+                              padding: 0,
+                              fontSize: '6rem', // Extreme logo size
+                              fontWeight: 800,
+                              textTransform: 'uppercase',
+                              letterSpacing: '-0.05em', // Tight letter spacing
+                              lineHeight: 0.65, // Tight line height for logo feel
+                              zIndex: 25,
+                              pointerEvents: 'none',
+                              color: 'white',
+                              mixBlendMode: 'difference',
+                              wordBreak: 'break-all',
+                              width: '100%',
+                              textAlign: 'left',
+                              display: 'block'
+                            }}
+                          >
+                            {data.title}
+                          </motion.h3>
+                          {/* Description removed for cards with hover images */}
+                        </>
+                      ) : (
+                        <>
+                          <h3 className={styles.title}>{data.title}</h3>
+                          {data.description && <p className={styles.desc}>{data.description}</p>}
+                        </>
+                      )}
                     </>
                   )}
             </div>
+
+            {/* showArrow removed for default cards that are not links, or logic simplified */}
+            {data.showArrow && (
+              <svg 
+                className={styles.cardArrow} 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            )}
         </div>
     </div>
   );
