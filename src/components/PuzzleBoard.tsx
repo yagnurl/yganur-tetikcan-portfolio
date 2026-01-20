@@ -1,56 +1,33 @@
 import React, { useState } from 'react';
 import { motion, PanInfo } from 'framer-motion';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styles from './PuzzleBoard.module.css';
 import PuzzlePiece from './PuzzlePiece';
-import { puzzleData, PuzzlePieceData } from '@/data/cardData';
-import ProjectScatter from './ProjectScatter';
-import ExperienceModal from './ExperienceModal';
+import { PuzzlePieceData } from '@/data/cardData';
 
-export default function PuzzleBoard() {
-  const [items, setItems] = useState<PuzzlePieceData[]>(puzzleData);
+interface PuzzleBoardProps {
+  initialData: PuzzlePieceData[];
+}
+
+export default function PuzzleBoard({ initialData }: PuzzleBoardProps) {
+  const [items, setItems] = useState<PuzzlePieceData[]>(initialData);
   const [draggedId, setDraggedId] = useState<string | null>(null);
 
-  // Sync state with imported data during development (or if data changes)
+  // Sync state with prop data when it changes
   React.useEffect(() => {
-    setItems(puzzleData);
-  }, []);
+    setItems(initialData);
+  }, [initialData]);
   
-  // Modal State Logic
+  // Router for navigation
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const showProjects = searchParams.get('view') === 'projects';
-  const showExperience = searchParams.get('view') === 'experience';
-
-  // Scroll Lock Logic
-  React.useEffect(() => {
-    if (showProjects || showExperience) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    };
-  }, [showProjects, showExperience]);
-
   const boardRef = React.useRef<HTMLDivElement>(null);
 
   const handleCardClick = (id: string) => {
     if (id === 'projects-link') {
-      router.push(`${pathname}?view=projects`, { scroll: false });
+      router.push('/works');
     } else if (id === 'case-craft') {
-      router.push(`${pathname}?view=experience`, { scroll: false });
+      router.push('/experience');
     }
-  };
-
-  const closeModals = () => {
-    // Remove query param
-    router.push(pathname, { scroll: false });
   };
 
   const handleDragStart = (id: string) => {
@@ -119,9 +96,6 @@ export default function PuzzleBoard() {
 
   return (
     <div className={styles.boardContainer}>
-      <ProjectScatter isOpen={showProjects} onClose={closeModals} />
-      <ExperienceModal isOpen={showExperience} onClose={closeModals} />
-      
       <div className={styles.grid} ref={boardRef}>
         {items.map((item, index) => {
           const isWide = item.size === 'wide';

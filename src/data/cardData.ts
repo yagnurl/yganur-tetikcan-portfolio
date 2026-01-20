@@ -10,7 +10,7 @@ export interface PuzzlePieceData {
   category: CardCategory;
   color: CardColor;
   isEmpty?: boolean;
-  type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact' | 'project-item';
+  type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact' | 'project-item' | 'text-scroller';
   size: CardSize; 
   spotifyData?: {
     song: string;
@@ -145,6 +145,7 @@ export const puzzleData: PuzzlePieceData[] = [
     title: 'Toolbox',
     category: 'frontend',
     color: 'mint',
+    type: 'text-scroller',
     size: 'small'
   }
 ];

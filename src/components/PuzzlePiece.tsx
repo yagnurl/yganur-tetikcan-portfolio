@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { PuzzlePieceData } from '@/data/cardData';
 import styles from './PuzzlePiece.module.css';
 import DotGrid from './DotGrid';
+import TextScroller from './TextScroller';
 
 // Dynamically import MapCard to avoid SSR issues with Mapbox
 const MapCard = dynamic(() => import('./MapCard'), { 
@@ -50,11 +51,13 @@ export default function PuzzlePiece({
   const isInstagram = data.type === 'instagram';
   const isHero = data.id === 'hero';
   const isEphesus = data.type === 'ephesus';
+  const isTextScroller = data.type === 'text-scroller';
 
  let bgColor = '#ffffff'; 
-  if (isSpotify) bgColor = colors[data.color] || '#ffffff';  
+  if (isSpotify) bgColor = colors[data.color] || '#ffffff';
+  if (isTextScroller) bgColor = '#0a0a0a';
   let borderStyle = '1px solid rgba(0,0,0,0.08)';
-  if (isSpotify || isInstagram || isEphesus) borderStyle = 'none';
+  if (isSpotify || isInstagram || isEphesus || isTextScroller) borderStyle = 'none';
 
   const textColor = 'inherit';
   const fontFamily = isHero ? '"Proxima Nova", sans-serif' : 'inherit';
@@ -66,7 +69,7 @@ export default function PuzzlePiece({
     textAlign: 'left' as const,
     paddingBottom: '24px',
     paddingLeft: '24px'
-  } : (data.type === 'project-link' || data.type === 'contact' || isEphesus) ? {
+  } : (data.type === 'project-link' || data.type === 'contact' || isEphesus || isTextScroller) ? {
     padding: 0
   } : data.hoverImages ? {
     padding: 0 // Remove padding for cards with hover images
@@ -254,6 +257,8 @@ export default function PuzzlePiece({
                         <span>CO</span>
                       </div>
                     </div>
+                  ) : isTextScroller ? (
+                     <TextScroller />
                   ) : isEphesus ? (
                      <MapCard accessToken={MAPBOX_TOKEN} />
                   ) : data.type === 'project-link' ? (

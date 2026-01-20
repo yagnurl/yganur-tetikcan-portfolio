@@ -126,9 +126,9 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
       {isOpen && (
         <motion.div
             layoutId="projects-link"
-            initial={{ borderRadius: '16px' }}
-            animate={{ borderRadius: 0 }}
-            exit={{ opacity: 1, transition: { duration: 0 } }}
+            initial={{ opacity: 0, borderRadius: '16px' }}
+            animate={{ opacity: 1, borderRadius: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.2 } }}
             className={styles.modalOverlay}
             style={{
                 position: 'fixed',
@@ -136,20 +136,21 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
                 left: 0,
                 width: '100%',
                 height: '100vh',
-                backgroundColor: 'var(--page-bg, rgba(245, 243, 240, 0.95))',
-                zIndex: 9999,
+                backgroundColor: 'rgba(245, 243, 240, 0.98)',
+                zIndex: 10000,
                 overflowY: 'auto',
                 padding: '40px 20px',
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'center',
-                backdropFilter: 'blur(15px)'
+                backdropFilter: 'blur(20px)'
             }}
             transition={{
               type: 'spring',
-              damping: 20,
-              stiffness: 120,
-              mass: 1
+              damping: 25,
+              stiffness: 200,
+              mass: 0.8,
+              opacity: { duration: 0.3 }
             }}
         >
             {/* Close Button */}
@@ -162,7 +163,7 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
                  position: 'fixed', 
                  top: '32px', 
                  right: '32px', 
-                 zIndex: 10000, 
+                 zIndex: 10001, 
                  cursor: 'pointer', 
                  width: '48px',
                  height: '48px',
@@ -198,11 +199,11 @@ export default function ProjectScatter({ isOpen, onClose }: ProjectScatterProps)
                              <motion.div
                                  key={item.id}
                                  className={styles.cell}
-                                 initial={{ opacity: 0, y: 30 }}
+                                 initial={{ opacity: 0, y: 20 }}
                                  animate={{ opacity: 1, y: 0 }}
                                  transition={{ 
-                                   delay: 0.4 + (index * 0.05), // Wait for modal to expand
-                                   duration: 0.5,
+                                   delay: 0.2 + (index * 0.04),
+                                   duration: 0.4,
                                    ease: "easeOut"
                                  }}
                                  style={{

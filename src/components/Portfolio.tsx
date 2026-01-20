@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import PuzzleBoard from './PuzzleBoard';
 import LockdownButton from './LockdownButton';
 import styles from './Portfolio.module.css';
+import { PuzzlePieceData } from '@/data/cardData';
 
-export default function Portfolio() {
+interface PortfolioProps {
+  initialData: PuzzlePieceData[];
+}
+
+export default function Portfolio({ initialData }: PortfolioProps) {
   const [isLocked, setIsLocked] = useState(false);
 
   return (
@@ -14,7 +19,7 @@ export default function Portfolio() {
         isLocked={isLocked} 
         onToggle={() => setIsLocked(!isLocked)} 
       />
-      <PuzzleBoard />
+      <PuzzleBoard initialData={initialData} />
     </div>
   );
 }
