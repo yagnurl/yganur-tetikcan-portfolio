@@ -33,8 +33,8 @@ export const cardsToCreate = [
     order: 1,
     spotifyData: {
       status: 'Current Vibe',
-      song: "I Don't Belong",
-      artist: 'Fontaines D.C.'
+      song: 'Feed the Machine',
+      artist: 'Poor Man\'s Poison'
     }
   },
   {
@@ -50,8 +50,8 @@ export const cardsToCreate = [
   {
     _type: 'card',
     id: 'contact',
-    title: 'Let's stay connected!',
-    description: 'I'm always open to sharing ideas and expanding my network.',
+    title: `Let's stay connected!`,
+    description: `I'm always open to sharing ideas and expanding my network.`,
     category: 'null',
     color: 'cream',
     type: 'contact',
@@ -129,8 +129,23 @@ export const cardsToCreate = [
     title: 'Toolbox',
     category: 'frontend',
     color: 'mint',
+    type: 'text-scroller',
     size: 'small',
-    order: 10
+    order: 10,
+    technologies: [
+      { name: 'Next.js', weight: 800, size: 3.5, opacity: 1, blur: false },
+      { name: 'React', weight: 300, size: 2.2, opacity: 0.4, blur: true },
+      { name: 'Nuxt.js', weight: 700, size: 3, opacity: 0.9, blur: false },
+      { name: 'Vue', weight: 400, size: 2.5, opacity: 0.5, blur: true },
+      { name: 'TypeScript', weight: 600, size: 2.8, opacity: 0.7, blur: false },
+      { name: 'Tailwind', weight: 800, size: 3.2, opacity: 1, blur: false },
+      { name: 'Framer', weight: 300, size: 2, opacity: 0.35, blur: true },
+      { name: 'Three.js', weight: 700, size: 3.4, opacity: 0.85, blur: false },
+      { name: 'JavaScript', weight: 500, size: 2.6, opacity: 0.6, blur: true },
+      { name: 'Sanity', weight: 600, size: 2.4, opacity: 0.65, blur: false },
+      { name: 'Styled', weight: 400, size: 2.3, opacity: 0.45, blur: true },
+      { name: 'Motion', weight: 800, size: 3.6, opacity: 0.95, blur: false },
+    ]
   }
 ];
 

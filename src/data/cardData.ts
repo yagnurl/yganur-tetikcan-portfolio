@@ -26,6 +26,13 @@ export interface PuzzlePieceData {
     link: string;
   };
   hoverImages?: string[];
+  technologies?: Array<{
+    name: string;
+    weight?: number;
+    size?: number;
+    opacity?: number;
+    blur?: boolean;
+  }>;
   showArrow?: boolean;
   slug?: string;
   image?: string;
@@ -55,8 +62,8 @@ export const puzzleData: PuzzlePieceData[] = [
     size: 'small', // Changed to 1x1
     spotifyData: {
       status: 'Current Vibe',
-      song: "I Don't Belong",
-      artist: 'Fontaines D.C.'
+      song: 'Feed the Machine',
+      artist: 'Poor Man\'s Poison'
     }
   },
   // 3. Case Reflection (Small 1x1)

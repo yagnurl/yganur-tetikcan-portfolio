@@ -22,7 +22,14 @@ export async function getCards() {
     spotifyData,
     instagramData,
     vscoData,
-    hoverImages
+    hoverImages,
+    technologies[] {
+      name,
+      weight,
+      size,
+      opacity,
+      blur
+    }
   }`
   
   return await client.fetch(query)

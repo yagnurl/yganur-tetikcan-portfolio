@@ -35,8 +35,8 @@ const cardsData = [
     order: 1,
     spotifyData: {
       status: 'Current Vibe',
-      song: "I Don't Belong",
-      artist: 'Fontaines D.C.'
+      song: 'Feed the Machine',
+      artist: 'Poor Man\'s Poison'
     }
   },
   {
@@ -131,8 +131,23 @@ const cardsData = [
     title: 'Toolbox',
     category: 'frontend',
     color: 'mint',
+    type: 'text-scroller',
     size: 'small',
-    order: 10
+    order: 10,
+    technologies: [
+      { name: 'Next.js', weight: 800, size: 3.5, opacity: 1, blur: false },
+      { name: 'React', weight: 300, size: 2.2, opacity: 0.4, blur: true },
+      { name: 'Nuxt.js', weight: 700, size: 3, opacity: 0.9, blur: false },
+      { name: 'Vue', weight: 400, size: 2.5, opacity: 0.5, blur: true },
+      { name: 'TypeScript', weight: 600, size: 2.8, opacity: 0.7, blur: false },
+      { name: 'Tailwind', weight: 800, size: 3.2, opacity: 1, blur: false },
+      { name: 'Framer', weight: 300, size: 2, opacity: 0.35, blur: true },
+      { name: 'Three.js', weight: 700, size: 3.4, opacity: 0.85, blur: false },
+      { name: 'JavaScript', weight: 500, size: 2.6, opacity: 0.6, blur: true },
+      { name: 'Sanity', weight: 600, size: 2.4, opacity: 0.65, blur: false },
+      { name: 'Styled', weight: 400, size: 2.3, opacity: 0.45, blur: true },
+      { name: 'Motion', weight: 800, size: 3.6, opacity: 0.95, blur: false },
+    ]
   }
 ];
 
@@ -212,24 +227,64 @@ async function importData() {
   console.log('🚀 Starting Sanity data import...\n');
 
   try {
-    // Import cards
-    console.log('📦 Importing cards...');
+    // Get existing cards to update instead of delete
+    console.log('📋 Checking existing cards...');
+    const existingCards = await client.fetch('*[_type == "card"]');
+    const existingCardsMap = new Map(existingCards.map((card: any) => [card.id, card]));
+
+    // Import/Update cards
+    console.log('📦 Importing/Updating cards...');
+    let created = 0;
+    let updated = 0;
+    
     for (const card of cardsData) {
-      const result = await client.create(card);
-      console.log(`✅ Created card: ${card.id} (${result._id})`);
+      const existingCard = existingCardsMap.get(card.id);
+      if (existingCard) {
+        // Update existing card, preserve _id and _rev
+        const updateData = { ...card, _id: existingCard._id, _rev: existingCard._rev };
+        await client.createOrReplace(updateData);
+        console.log(`🔄 Updated card: ${card.id} (${existingCard._id})`);
+        updated++;
+      } else {
+        // Create new card
+        const result = await client.create(card);
+        console.log(`✅ Created card: ${card.id} (${result._id})`);
+        created++;
+      }
     }
 
-    // Import projects
-    console.log('\n📦 Importing projects...');
+    // Get existing projects to update instead of delete
+    console.log('\n📋 Checking existing projects...');
+    const existingProjects = await client.fetch('*[_type == "project"]');
+    const existingProjectsMap = new Map(existingProjects.map((project: any) => [project.slug?.current, project]));
+
+    // Import/Update projects
+    console.log('📦 Importing/Updating projects...');
+    let projectsCreated = 0;
+    let projectsUpdated = 0;
+    
     for (const project of projectsData) {
-      const result = await client.create(project);
-      console.log(`✅ Created project: ${project.title} (${result._id})`);
+      const projectSlug = project.slug?.current;
+      const existingProject = projectSlug ? existingProjectsMap.get(projectSlug) : null;
+      
+      if (existingProject) {
+        // Update existing project, preserve _id and _rev
+        const updateData = { ...project, _id: existingProject._id, _rev: existingProject._rev };
+        await client.createOrReplace(updateData);
+        console.log(`🔄 Updated project: ${project.title} (${existingProject._id})`);
+        projectsUpdated++;
+      } else {
+        // Create new project
+        const result = await client.create(project);
+        console.log(`✅ Created project: ${project.title} (${result._id})`);
+        projectsCreated++;
+      }
     }
 
     console.log('\n🎉 Data import completed successfully!');
     console.log(`\n📊 Summary:`);
-    console.log(`   - Cards: ${cardsData.length}`);
-    console.log(`   - Projects: ${projectsData.length}`);
+    console.log(`   - Cards: ${created} created, ${updated} updated`);
+    console.log(`   - Projects: ${projectsCreated} created, ${projectsUpdated} updated`);
     
   } catch (error) {
     console.error('❌ Error importing data:', error);

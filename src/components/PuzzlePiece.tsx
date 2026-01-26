@@ -1,10 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import { PuzzlePieceData } from '@/data/cardData';
-import styles from './PuzzlePiece.module.css';
 import DotGrid from './DotGrid';
+import { PuzzlePieceData } from '@/data/cardData';
+import React from 'react';
 import TextScroller from './TextScroller';
+import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
+import styles from './PuzzlePiece.module.css';
 
 // Dynamically import MapCard to avoid SSR issues with Mapbox
 const MapCard = dynamic(() => import('./MapCard'), { 
@@ -54,7 +54,8 @@ export default function PuzzlePiece({
   const isTextScroller = data.type === 'text-scroller';
 
  let bgColor = '#ffffff'; 
-  if (isSpotify) bgColor = colors[data.color] || '#ffffff';
+  if (isSpotify) bgColor = '#f0fdf4'; // Soft green background for Spotify
+  if (isInstagram) bgColor = '#fef2f2'; // Soft pink background for Instagram
   if (isTextScroller) bgColor = '#0a0a0a';
   let borderStyle = '1px solid rgba(0,0,0,0.08)';
   if (isSpotify || isInstagram || isEphesus || isTextScroller) borderStyle = 'none';
@@ -122,18 +123,11 @@ export default function PuzzlePiece({
             transition: 'background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1)' // Smoother, longer transition
           }}
         >
-            {(isSpotify || isInstagram) && (
-              <div 
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'url("https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop")',
-                  backgroundSize: '150% 150%',
-                  backgroundPosition: 'center', 
-                  opacity: 0.1,
-                  pointerEvents: 'none'
-                }} 
-              />
+            {isSpotify && (
+              <div className={`${styles.grainMesh} ${styles.grainMeshSpotify}`} />
+            )}
+            {isInstagram && (
+              <div className={`${styles.grainMesh} ${styles.grainMeshInstagram}`} />
             )}
 
             {/* Hover Floating Images */}
@@ -186,14 +180,7 @@ export default function PuzzlePiece({
             <div className={styles.content} style={contentStyle}>
                   {data.type === 'spotify' && data.spotifyData ? (
                     <div className={styles.spotifyContainer}>
-                      <div className={styles.spotifyIcon}>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                           <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-                           <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-                        </svg>
-                      </div>
-                      
-                      <div>
+                       <div>
                         <div className={styles.spotifyStatus}>
                             <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: '12px', marginRight: '6px' }}>
                               <motion.div
@@ -214,9 +201,26 @@ export default function PuzzlePiece({
                             </div>
                             {data.spotifyData.status}
                         </div>
-                        <div className={styles.spotifySong}>{data.spotifyData.song}</div>
-                        <div className={styles.spotifyArtist}>{data.spotifyData.artist}</div>
+                    
                       </div>
+                      {/* Album Cover Image */}
+                      {data.spotifyData.song?.toLowerCase().includes('feed the machine') && (
+                        <div className={styles.spotifyAlbumCover}>
+                          <img 
+                            src="https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856" 
+                            alt={`${data.spotifyData.song} - ${data.spotifyData.artist}`}
+                            onError={(e) => {
+                              // Fallback to placeholder if image fails to load
+                              e.currentTarget.src = 'https://via.placeholder.com/100x100/1DB954/ffffff?text=FTM';
+                            }}
+                          />
+                        </div>
+                      )}
+                  <div>
+                  <div className={styles.spotifySong}>{data.spotifyData.song}</div>
+                  <div className={styles.spotifyArtist}>{data.spotifyData.artist}</div>
+                    </div>
+                    
                     </div>
                   ) : data.type === 'instagram' && data.instagramData ? (
                     <div 
@@ -258,7 +262,7 @@ export default function PuzzlePiece({
                       </div>
                     </div>
                   ) : isTextScroller ? (
-                     <TextScroller />
+                     <TextScroller technologies={data.technologies} />
                   ) : isEphesus ? (
                      <MapCard accessToken={MAPBOX_TOKEN} />
                   ) : data.type === 'project-link' ? (

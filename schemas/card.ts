@@ -68,6 +68,7 @@ export const cardSchema = defineType({
           {title: 'Ephesus', value: 'ephesus'},
           {title: 'VSCO', value: 'vsco'},
           {title: 'Contact', value: 'contact'},
+          {title: 'Text Scroller', value: 'text-scroller'},
         ],
       },
     }),
@@ -130,6 +131,38 @@ export const cardSchema = defineType({
       title: 'Hover Images',
       type: 'array',
       of: [{type: 'string'}],
+    }),
+    // Technologies for Text Scroller
+    defineField({
+      name: 'technologies',
+      title: 'Technologies',
+      type: 'array',
+      hidden: ({document}) => document?.type !== 'text-scroller',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'name', type: 'string', title: 'Technology Name', validation: Rule => Rule.required()},
+            {name: 'weight', type: 'number', title: 'Font Weight (300-800)', validation: Rule => Rule.min(300).max(800)},
+            {name: 'size', type: 'number', title: 'Font Size (rem)', validation: Rule => Rule.min(1).max(5)},
+            {name: 'opacity', type: 'number', title: 'Opacity (0-1)', validation: Rule => Rule.min(0).max(1)},
+            {name: 'blur', type: 'boolean', title: 'Blur Effect', initialValue: false},
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              weight: 'weight',
+              size: 'size',
+            },
+            prepare({title, weight, size}) {
+              return {
+                title: title || 'Untitled',
+                subtitle: `Weight: ${weight || 400}, Size: ${size || 2.5}rem`,
+              }
+            },
+          },
+        },
+      ],
     }),
   ],
   preview: {
