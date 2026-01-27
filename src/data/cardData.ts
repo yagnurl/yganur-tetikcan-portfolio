@@ -114,14 +114,14 @@ export const puzzleData: PuzzlePieceData[] = [
     // Description removed
   },
   // 8. About (Tall 1x2)
-  {
-    id: 'about',
-    title: 'Context',
-    description: 'Frontend developer.',
-    category: 'frontend',
-    color: 'cream',
-    size: 'tall'
-  },
+  // {
+  //   id: 'about',
+  //   title: 'Context',
+  //   description: 'Frontend developer.',
+  //   category: 'frontend',
+  //   color: 'cream',
+  //   size: 'tall'
+  // },
   // 9. Instagram (Small 1x1)
   {
     id: 'instagram',

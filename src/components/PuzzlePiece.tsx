@@ -17,7 +17,8 @@ const MapCard = dynamic(() => import('./MapCard'), {
       alignItems: 'center', 
       justifyContent: 'center',
       background: '#e5e7eb',
-      borderRadius: '16px'
+      borderRadius: '16px',
+    
     }}>
       <span style={{ fontSize: '0.8rem', color: '#666' }}>Loading map...</span>
     </div>
@@ -94,9 +95,11 @@ export default function PuzzlePiece({
     }
   }, [isHovered, data.hoverImages]);
 
+  const isProjectItem = data.type === 'project-item' && data.image && !data.hoverImages;
+
   return (
     <div 
-      className={styles.container}
+      className={`${styles.container} ${isProjectItem ? styles.projectItemContainer : ''}`}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
       style={{ 
@@ -106,11 +109,12 @@ export default function PuzzlePiece({
         color: textColor,
         fontFamily: fontFamily,
         fontWeight: fontWeight,
-        cursor: data.hoverImages ? 'pointer' : 'default',
+        cursor: (data.hoverImages || data.type === 'project-item' || data.type === 'project-link' || data.type === 'contact' || data.type === 'instagram' || data.type === 'vsco') ? 'pointer' : 'default',
         overflow: 'visible'
       }}
     >
         <div
+          className={isProjectItem ? styles.projectItemCard : ''}
           style={{
             width: '100%',
             height: '100%',
@@ -118,7 +122,7 @@ export default function PuzzlePiece({
             backgroundColor: activeBgColor,
             border: borderStyle,
             position: 'relative',
-            overflow: data.hoverImages ? 'visible' : 'hidden',
+            overflow: isProjectItem ? 'hidden' : (data.hoverImages ? 'visible' : 'hidden'),
             zIndex: 1,
             transition: 'background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1)' // Smoother, longer transition
           }}
@@ -128,6 +132,40 @@ export default function PuzzlePiece({
             )}
             {isInstagram && (
               <div className={`${styles.grainMesh} ${styles.grainMeshInstagram}`} />
+            )}
+
+            {/* Static Image for project-item type */}
+            {data.type === 'project-item' && data.image && !data.hoverImages && (
+              <>
+                <img 
+                  src={data.image} 
+                  alt={data.title || ''} 
+                  className={styles.projectItemImage}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    zIndex: 0,
+                    display: 'block'
+                  }}
+                />
+                {/* Title overlay */}
+                {data.title && (
+                  <div className={styles.projectItemTitle}>
+                    {data.title}
+                  </div>
+                )}
+                {/* Arrow button - top right, visible on hover */}
+                <button className={styles.projectItemArrowBtn}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </button>
+              </>
             )}
 
             {/* Hover Floating Images */}
@@ -412,8 +450,13 @@ export default function PuzzlePiece({
                         </>
                       ) : (
                         <>
-                          <h3 className={styles.title}>{data.title}</h3>
-                          {data.description && <p className={styles.desc}>{data.description}</p>}
+                          {/* Only show title/description if not project-item with image */}
+                          {!(data.type === 'project-item' && data.image) && (
+                            <>
+                              <h3 className={styles.title}>{data.title}</h3>
+                              {data.description && <p className={styles.desc}>{data.description}</p>}
+                            </>
+                          )}
                         </>
                       )}
                     </>

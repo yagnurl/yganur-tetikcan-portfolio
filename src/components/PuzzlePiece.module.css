@@ -374,6 +374,7 @@
 }
 
 .contactCheckLinks {
+  cursor: pointer;
   color: #1a1a1a;
   text-decoration: none;
   cursor: pointer;
@@ -563,4 +564,100 @@
 
 .hasImageArrow {
   color: white;
+}
+
+/* Project Item Styles */
+.projectItemContainer {
+  overflow: visible !important;
+  cursor: pointer !important;
+}
+
+.projectItemCard {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer !important;
+}
+
+.projectItemImage {
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.curvedCorner {
+  display: none; /* Not needed anymore */
+}
+
+.cornerCutout {
+  display: none; /* Not needed anymore */
+}
+
+.actionBtn {
+  display: none; /* Not needed anymore */
+}
+
+.projectItemTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 5;
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  pointer-events: none;
+  pointer-events: none;
+}
+
+.projectItemArrowBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 48px;
+  height: 48px;
+  background: #000000;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.projectItemContainer:hover .projectItemArrowBtn,
+.projectItemCard:hover .projectItemArrowBtn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.projectItemArrowBtn:hover {
+  background: #1a1a1a;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.projectItemArrowBtn:active {
+  transform: scale(0.95);
+}
+
+.projectItemArrowBtn svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }

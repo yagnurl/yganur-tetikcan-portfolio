@@ -22,6 +22,7 @@ export async function getCards() {
     spotifyData,
     instagramData,
     vscoData,
+    image,
     hoverImages,
     technologies[] {
       name,
@@ -36,13 +37,17 @@ export async function getCards() {
 }
 
 export async function getProjects() {
-  const query = `*[_type == "project"] | order(publishedAt desc) {
+  const query = `*[_type == "project"] | order(order asc, publishedAt desc) {
     _id,
     title,
     slug,
     mainImage,
     summary,
-    publishedAt
+    publishedAt,
+    category,
+    color,
+    size,
+    order
   }`
   
   return await client.fetch(query)

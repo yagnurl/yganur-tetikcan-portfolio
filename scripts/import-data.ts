@@ -1,5 +1,6 @@
-import { createClient } from '@sanity/client';
 import * as dotenv from 'dotenv';
+
+import { createClient } from '@sanity/client';
 
 // Load environment variables from .env file
 dotenv.config();

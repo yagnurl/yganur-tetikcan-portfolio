@@ -69,6 +69,7 @@ export const cardSchema = defineType({
           {title: 'VSCO', value: 'vsco'},
           {title: 'Contact', value: 'contact'},
           {title: 'Text Scroller', value: 'text-scroller'},
+          {title: 'Project Item', value: 'project-item'},
         ],
       },
     }),
@@ -124,6 +125,16 @@ export const cardSchema = defineType({
         {name: 'handle', type: 'string', title: 'Handle'},
         {name: 'link', type: 'url', title: 'Link'},
       ],
+    }),
+    // Image for project-item type
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      hidden: ({document}) => document?.type !== 'project-item',
     }),
     // Hover Images
     defineField({
