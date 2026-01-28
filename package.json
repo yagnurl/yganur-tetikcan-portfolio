@@ -16,7 +16,7 @@
     "@portabletext/react": "^4.0.3",
     "@react-three/drei": "^9.88.17",
     "@react-three/fiber": "^8.15.19",
-    "@sanity/client": "^6.29.1",
+    "@sanity/client": "^7.14.1",
     "@sanity/image-url": "^1.2.0",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.24.7",
@@ -30,7 +30,7 @@
     "three": "^0.160.0"
   },
   "devDependencies": {
-    "@sanity/vision": "^5.2.0",
+    "@sanity/vision": "^3.2.0",
     "@types/node": "^20",
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
@@ -40,5 +40,8 @@
     "sanity": "^3.99.0",
     "tsx": "^4.21.0",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
