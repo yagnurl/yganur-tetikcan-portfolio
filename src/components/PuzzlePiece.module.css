@@ -624,7 +624,7 @@
   right: 12px;
   width: 48px;
   height: 48px;
-  background: #000000;
+  background: #fff;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -632,7 +632,7 @@
   justify-content: center;
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
-  color: white;
+  color: #1a1a1a;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 0;
   z-index: 10;
@@ -646,11 +646,6 @@
   transform: scale(1);
 }
 
-.projectItemArrowBtn:hover {
-  background: #1a1a1a;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
-}
 
 .projectItemArrowBtn:active {
   transform: scale(0.95);

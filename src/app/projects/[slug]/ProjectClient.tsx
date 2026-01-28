@@ -1,8 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { PortableText } from '@portabletext/react';
+import styles from './ProjectClient.module.css';
 
 interface ProjectClientProps {
   data: {
@@ -11,11 +12,53 @@ interface ProjectClientProps {
     content: any;
     link?: string;
     mainImage: string | null;
+    images?: string[];
   };
 }
 
 export default function ProjectClient({ data }: ProjectClientProps) {
   const router = useRouter();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let rafId: number | null = null;
+    let ticking = false;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (ticking) return;
+
+      const rect = container.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (!isInViewport) return;
+
+      const containerTop = rect.top;
+      const containerBottom = rect.bottom;
+      const viewportHeight = window.innerHeight;
+      
+      // Only convert scroll if container is significantly visible (middle 60% of viewport)
+      if (containerTop < viewportHeight * 0.7 && containerBottom > viewportHeight * 0.3) {
+        ticking = true;
+        
+        if (rafId) cancelAnimationFrame(rafId);
+        
+        rafId = requestAnimationFrame(() => {
+          e.preventDefault();
+          container.scrollLeft += e.deltaY * 1.2;
+          ticking = false;
+        });
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <div style={{ backgroundColor: '#fdfdfd', minHeight: '100vh', color: '#1a1a1a', fontFamily: 'var(--font-primary)' }}>
@@ -48,7 +91,7 @@ export default function ProjectClient({ data }: ProjectClientProps) {
         </svg>
       </div>
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '120px 40px 80px' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '120px 0 80px' }}>
         
         {/* Top Section: Split Layout */}
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 4fr) minmax(0, 5fr)', gap: '80px', marginBottom: '120px' }}>
@@ -120,23 +163,51 @@ export default function ProjectClient({ data }: ProjectClientProps) {
             </motion.div>
         </div>
 
-        {/* Main Image */}
-        {data.mainImage && (
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                style={{ 
-                    width: '100%', 
-                    height: '600px',
-                    borderRadius: '24px', 
-                    overflow: 'hidden', 
-                    backgroundColor: '#eee' 
-                }}
-            >
-                <img src={data.mainImage} alt={data.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {/* Images - Horizontal Scroll */}
+        {data.images && data.images.length > 0 && (
+            <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginTop: '40px', marginBottom: '40px' }}>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className={styles.horizontalScroll}
+                    ref={scrollContainerRef}
+                >
+                <div className={styles.horizontalScrollContent}>
+                    {data.images.map((imageUrl, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: 100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: '-50px' }}
+                            transition={{ 
+                                duration: 0.6, 
+                                delay: index * 0.15,
+                                ease: [0.4, 0, 0.2, 1]
+                            }}
+                            className={styles.scrollImage}
+                            whileHover={{ scale: 1.02 }}
+                        >
+                            <img 
+                                src={imageUrl} 
+                                alt={`${data.title} - Image ${index + 1}`} 
+                                loading="lazy"
+                                style={{ 
+                                    display: 'block',
+                                    maxWidth: 'none',
+                                    maxHeight: '500px',
+                                    width: 'auto',
+                                    height: 'auto',
+                                    objectFit: 'contain', 
+                                    pointerEvents: 'none' 
+                                }} 
+                            />
+                        </motion.div>
+                    ))}
+                </div>
             </motion.div>
+            </div>
         )}
 
       </div>

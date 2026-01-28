@@ -1,0 +1,41 @@
+.horizontalScroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 20px 40px;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.horizontalScroll:active {
+  cursor: grabbing;
+}
+
+.horizontalScrollContent {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  padding-right: calc(50vw - 50%);
+  padding-left: 0;
+}
+
+.scrollImage {
+  flex-shrink: 0;
+  border-radius: 24px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  height: fit-content;
+}
+

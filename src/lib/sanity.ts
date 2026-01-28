@@ -59,6 +59,7 @@ export async function getProjectBySlug(slug: string) {
     title,
     slug,
     mainImage,
+    images,
     summary,
     content,
     link,

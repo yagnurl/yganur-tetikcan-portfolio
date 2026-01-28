@@ -23,7 +23,7 @@ export default defineType({
     }),
     defineField({
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Main image (for Works page)',
       type: 'image',
       options: {
         hotspot: true,
@@ -34,7 +34,29 @@ export default defineType({
           type: 'string',
           title: 'Alternative Text',
         }
-      ]
+      ],
+      description: 'This image will be shown on the Works page card',
+    }),
+    defineField({
+      name: 'images',
+      title: 'Project Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+            }
+          ]
+        }
+      ],
+      description: 'Additional images for the project detail page',
     }),
     defineField({
       name: 'summary',
