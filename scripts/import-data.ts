@@ -230,8 +230,10 @@ async function importData() {
   try {
     // Get existing cards to update instead of delete
     console.log('📋 Checking existing cards...');
-    const existingCards = await client.fetch('*[_type == "card"]');
-    const existingCardsMap = new Map(existingCards.map((card: any) => [card.id, card]));
+    const existingCards = await client.fetch('*[_type == "card"]') as Array<{ id: string; _id: string; _rev?: string }>;
+    const existingCardsMap = new Map<string, { _id: string; _rev?: string }>(
+      existingCards.map((card: any) => [card.id, { _id: card._id, _rev: card._rev }])
+    );
 
     // Import/Update cards
     console.log('📦 Importing/Updating cards...');
@@ -242,13 +244,13 @@ async function importData() {
       const existingCard = existingCardsMap.get(card.id);
       if (existingCard) {
         // Update existing card, preserve _id and _rev
-        const updateData = { ...card, _id: existingCard._id, _rev: existingCard._rev };
+        const updateData = { ...card, _id: existingCard._id, _rev: existingCard._rev } as any;
         await client.createOrReplace(updateData);
         console.log(`🔄 Updated card: ${card.id} (${existingCard._id})`);
         updated++;
       } else {
         // Create new card
-        const result = await client.create(card);
+        const result = await client.create(card as any);
         console.log(`✅ Created card: ${card.id} (${result._id})`);
         created++;
       }
@@ -256,8 +258,12 @@ async function importData() {
 
     // Get existing projects to update instead of delete
     console.log('\n📋 Checking existing projects...');
-    const existingProjects = await client.fetch('*[_type == "project"]');
-    const existingProjectsMap = new Map(existingProjects.map((project: any) => [project.slug?.current, project]));
+    const existingProjects = await client.fetch('*[_type == "project"]') as Array<{ slug?: { current?: string }; _id: string; _rev?: string }>;
+    const existingProjectsMap = new Map<string, { _id: string; _rev?: string }>(
+      existingProjects
+        .filter((project: any) => project.slug?.current)
+        .map((project: any) => [project.slug.current, { _id: project._id, _rev: project._rev }])
+    );
 
     // Import/Update projects
     console.log('📦 Importing/Updating projects...');
@@ -270,13 +276,13 @@ async function importData() {
       
       if (existingProject) {
         // Update existing project, preserve _id and _rev
-        const updateData = { ...project, _id: existingProject._id, _rev: existingProject._rev };
+        const updateData = { ...project, _id: existingProject._id, _rev: existingProject._rev } as any;
         await client.createOrReplace(updateData);
         console.log(`🔄 Updated project: ${project.title} (${existingProject._id})`);
         projectsUpdated++;
       } else {
         // Create new project
-        const result = await client.create(project);
+        const result = await client.create(project as any);
         console.log(`✅ Created project: ${project.title} (${result._id})`);
         projectsCreated++;
       }
