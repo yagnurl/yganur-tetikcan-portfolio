@@ -61,29 +61,11 @@ export default function ProjectClient({ data }: ProjectClientProps) {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#fdfdfd', minHeight: '100vh', color: '#1a1a1a', fontFamily: 'var(--font-primary)' }}>
+    <div className={styles.pageContainer}>
       {/* Back Button */}
       <div 
         onClick={() => router.back()}
-        style={{ 
-            position: 'fixed', 
-            top: 40, 
-            left: 40, 
-            zIndex: 100, 
-            cursor: 'pointer',
-            width: 44,
-            height: 44,
-            backgroundColor: '#ffffff',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-            transition: 'transform 0.2s ease',
-            border: '1px solid #f0f0f0'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        className={styles.backButton}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -91,46 +73,32 @@ export default function ProjectClient({ data }: ProjectClientProps) {
         </svg>
       </div>
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '120px 0 80px' }}>
+      <div className={styles.contentContainer}>
         
         {/* Top Section: Split Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 4fr) minmax(0, 5fr)', gap: '80px', marginBottom: '120px' }}>
+        <div className={styles.topSection}>
             {/* Left Column: Title & Punchline */}
             <motion.div
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.6 }}
+               className={styles.leftColumn}
             >
-                <h1 style={{ fontFamily: 'var(--font-hero)', fontSize: '4.5rem', marginBottom: '32px', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                <h1 className={styles.title}>
                     {data.title}
                 </h1>
-                <p style={{ fontFamily: 'var(--font-primary)', fontSize: '1.5rem', lineHeight: '1.4', fontWeight: 500, marginBottom: '40px', color: '#111' }}>
+                <p className={styles.punchline}>
                     {data.punchline}
                 </p>
                 
                 {/* Link */}
                 {data.link && (
-                    <div style={{ display: 'flex', gap: '12px' }}>
+                    <div className={styles.linkContainer}>
                         <a 
                            href={data.link}
                            target="_blank"
                            rel="noopener noreferrer"
-                           style={{ 
-                               padding: '12px 24px', 
-                               backgroundColor: '#f1f1f1', 
-                               borderRadius: '30px', 
-                               textDecoration: 'none', 
-                               color: '#1a1a1a',
-                               fontSize: '0.95rem',
-                               fontWeight: 500,
-                               display: 'inline-flex',
-                               alignItems: 'center',
-                               gap: '6px',
-                               transition: 'background-color 0.2s',
-                               cursor: 'pointer'
-                           }}
-                           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e5e5e5'}
-                           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f1f1f1'}
+                           className={styles.projectLink}
                         >
                             View Project
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -147,15 +115,15 @@ export default function ProjectClient({ data }: ProjectClientProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ paddingTop: '10px' }}
+                className={styles.rightColumn}
             >
-                <div style={{ fontFamily: 'var(--font-primary)', fontSize: '1.1rem', lineHeight: '1.7', color: '#444' }}>
+                <div className={styles.description}>
                     {data.content && (
                         <PortableText 
                             value={data.content}
                             components={{
                                 block: {
-                                    normal: ({children}) => <p style={{ marginBottom: '24px' }}>{children}</p>,
+                                    normal: ({children}) => <p className={styles.paragraph}>{children}</p>,
                                 },
                             }}
                         />
@@ -166,7 +134,7 @@ export default function ProjectClient({ data }: ProjectClientProps) {
 
         {/* Images - Horizontal Scroll */}
         {data.images && data.images.length > 0 && (
-            <div style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginTop: '40px', marginBottom: '40px' }}>
+            <div className={styles.imagesWrapper}>
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -194,15 +162,7 @@ export default function ProjectClient({ data }: ProjectClientProps) {
                                 src={imageUrl} 
                                 alt={`${data.title} - Image ${index + 1}`} 
                                 loading="lazy"
-                                style={{ 
-                                    display: 'block',
-                                    maxWidth: 'none',
-                                    maxHeight: '500px',
-                                    width: 'auto',
-                                    height: 'auto',
-                                    objectFit: 'contain', 
-                                    pointerEvents: 'none' 
-                                }} 
+                                className={styles.scrollImageImg}
                             />
                         </motion.div>
                     ))}

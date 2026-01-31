@@ -802,7 +802,6 @@
 /* Project Item Styles */
 .projectItemContainer {
   overflow: visible !important;
-  cursor: pointer !important;
 }
 
 .projectItemCard {
@@ -822,6 +821,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
+  cursor: pointer;
 }
 
 .projectItemImageFadeIn {
@@ -971,6 +971,7 @@
   opacity: 0.85;
   border-radius: 16px;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .glassOverlay {
@@ -985,6 +986,7 @@
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   overflow: hidden;
+  pointer-events: none;
 }
 
 /* Image Popover for cards without detail page - shown on page load */

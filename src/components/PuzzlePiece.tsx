@@ -115,8 +115,7 @@ export default function PuzzlePiece({
         cursor: (isSoon) ? 'default' : ((data.hoverImages || data.type === 'project-item' || data.type === 'project-link' || data.type === 'contact' || data.type === 'instagram' || data.type === 'vsco') ? 'pointer' : 'default'),
         overflow: 'visible',
         boxSizing: 'border-box',
-       
-      }}
+      } as React.CSSProperties}
     >
         <div
           className={isProjectItem ? styles.projectItemCard : ''}

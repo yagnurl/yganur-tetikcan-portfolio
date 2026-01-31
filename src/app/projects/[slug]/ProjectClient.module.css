@@ -1,3 +1,281 @@
+/* Page Container */
+.pageContainer {
+  background-color: #fdfdfd;
+  min-height: 100vh;
+  color: #1a1a1a;
+  font-family: var(--font-primary);
+}
+
+/* Back Button */
+.backButton {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  z-index: 100;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.backButton:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .backButton {
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .backButton svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .backButton {
+    top: 16px;
+    left: 16px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .backButton svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Content Container */
+.contentContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 120px 40px 80px;
+}
+
+@media (max-width: 1100px) {
+  .contentContainer {
+    padding: 100px 32px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    padding: 80px 20px 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contentContainer {
+    padding: 70px 16px 30px;
+  }
+}
+
+/* Top Section */
+.topSection {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  gap: 80px;
+  margin-bottom: 120px;
+}
+
+@media (max-width: 1100px) {
+  .topSection {
+    gap: 60px;
+    margin-bottom: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .topSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topSection {
+    gap: 32px;
+    margin-bottom: 50px;
+  }
+}
+
+/* Left Column */
+/* No specific styles needed, inherits from grid */
+
+/* Title */
+.title {
+  font-family: var(--font-hero);
+  font-size: 4.5rem;
+  margin-bottom: 32px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+@media (max-width: 1100px) {
+  .title {
+    font-size: 3.5rem;
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* Punchline */
+.punchline {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: #111;
+}
+
+@media (max-width: 1100px) {
+  .punchline {
+    font-size: 1.3rem;
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .punchline {
+    font-size: 1.15rem;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .punchline {
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+}
+
+/* Link Container */
+.linkContainer {
+  display: flex;
+  gap: 12px;
+}
+
+/* Project Link */
+.projectLink {
+  padding: 12px 24px;
+  background-color: #f1f1f1;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.projectLink:hover {
+  background-color: #e5e5e5;
+}
+
+@media (max-width: 600px) {
+  .projectLink {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Right Column */
+.rightColumn {
+  padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .rightColumn {
+    padding-top: 0;
+  }
+}
+
+/* Description */
+.description {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 600px) {
+  .description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+/* Paragraph */
+.paragraph {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .paragraph {
+    margin-bottom: 20px;
+  }
+}
+
+/* Images Wrapper */
+.imagesWrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .imagesWrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .imagesWrapper {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+/* Horizontal Scroll */
 .horizontalScroll {
   width: 100%;
   overflow-x: auto;
@@ -19,6 +297,19 @@
   cursor: grabbing;
 }
 
+@media (max-width: 768px) {
+  .horizontalScroll {
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .horizontalScroll {
+    padding: 12px 16px;
+  }
+}
+
+/* Horizontal Scroll Content */
 .horizontalScrollContent {
   display: flex;
   gap: 24px;
@@ -27,16 +318,60 @@
   padding-left: 0;
 }
 
+@media (max-width: 768px) {
+  .horizontalScrollContent {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .horizontalScrollContent {
+    gap: 16px;
+  }
+}
+
+/* Scroll Image */
 .scrollImage {
   flex-shrink: 0;
   border-radius: 24px;
   overflow: hidden;
-
   display: flex;
   align-items: center;
   justify-content: center;
- 
   height: fit-content;
 }
 
+@media (max-width: 768px) {
+  .scrollImage {
+    border-radius: 16px;
+  }
+}
 
+@media (max-width: 600px) {
+  .scrollImage {
+    border-radius: 12px;
+  }
+}
+
+/* Scroll Image Img */
+.scrollImageImg {
+  display: block;
+  max-width: none;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .scrollImageImg {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scrollImageImg {
+    max-height: 300px;
+  }
+}

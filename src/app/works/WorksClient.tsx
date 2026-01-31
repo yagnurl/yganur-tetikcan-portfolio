@@ -124,6 +124,7 @@ export default function WorksClient({ worksData }: WorksClientProps) {
               layoutId={item.id}
               className={styles.cell}
               data-item-id={item.id}
+              data-is-soon={item.isSoon ? 'true' : 'false'}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ 
@@ -138,8 +139,9 @@ export default function WorksClient({ worksData }: WorksClientProps) {
                 width: '100%',
                 height: '100%',
                 cursor: item.isSoon ? 'default' : 'pointer',
-                pointerEvents: item.isSoon ? 'none' : 'auto'
-              }}
+                pointerEvents: item.isSoon ? 'none' : 'auto',
+                touchAction: isMobile ? 'pan-y' : 'auto'
+              } as React.CSSProperties}
               onClick={() => {
                 // Don't navigate if project is coming soon
                 if (item.isSoon) {
