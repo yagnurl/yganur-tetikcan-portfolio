@@ -108,6 +108,15 @@
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .cell {
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
 /* Responsive cell adjustments for intermediate breakpoints */
 @media (max-width: 1000px) and (min-width: 768px) {
   .cell {
@@ -135,6 +144,10 @@
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
+    touch-action: pan-y !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
   }
   
   /* Override any inline styles on mobile */

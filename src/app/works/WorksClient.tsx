@@ -24,7 +24,9 @@ export default function WorksClient({ worksData }: WorksClientProps) {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const isMobileDevice = window.innerWidth <= 768 || 
+                            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(isMobileDevice);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -149,28 +151,30 @@ export default function WorksClient({ worksData }: WorksClientProps) {
                   window.open(item.externalLink, '_blank', 'noopener,noreferrer');
                 }
               }}
-              drag={!isMobile}
-              dragConstraints={!isMobile ? boardRef : undefined}
-              dragSnapToOrigin={!isMobile}
-              dragElastic={!isMobile ? 0 : undefined}
-              dragMomentum={!isMobile ? false : undefined}
-              dragTransition={!isMobile ? { bounceStiffness: 600, bounceDamping: 20 } : undefined}
-              onDragStart={!isMobile ? () => handleDragStart(item.id) : undefined}
-              onDrag={!isMobile ? (e: any, info: any) => handleDrag(e, info, item) : undefined}
-              onDragEnd={!isMobile ? handleDragEnd : undefined}
-              whileDrag={{ 
-                scale: 1.05,
-                zIndex: 1000,
-                cursor: "grabbing"
-              }}
-              whileHover={!isMobile ? {
-                scale: 1.02,
-                zIndex: 10
-              } : {}}
-              whileTap={{
-                scale: 0.98,
-                zIndex: 1000
-              }}
+              {...(isMobile ? {} : {
+                drag: true,
+                dragConstraints: boardRef,
+                dragSnapToOrigin: true,
+                dragElastic: 0,
+                dragMomentum: false,
+                dragTransition: { bounceStiffness: 600, bounceDamping: 20 },
+                onDragStart: () => handleDragStart(item.id),
+                onDrag: (e: any, info: any) => handleDrag(e, info, item),
+                onDragEnd: handleDragEnd,
+                whileDrag: { 
+                  scale: 1.05,
+                  zIndex: 1000,
+                  cursor: "grabbing"
+                },
+                whileHover: {
+                  scale: 1.02,
+                  zIndex: 10
+                },
+                whileTap: {
+                  scale: 0.98,
+                  zIndex: 1000
+                }
+              })}
             >
               <PuzzlePiece 
                 data={item} 
