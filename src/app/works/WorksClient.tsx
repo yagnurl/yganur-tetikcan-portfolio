@@ -171,12 +171,6 @@ export default function WorksClient({ worksData }: WorksClientProps) {
                 scale: 0.98,
                 zIndex: 1000
               }}
-              transition={{
-                type: 'spring',
-                damping: 20,
-                stiffness: 120,
-                mass: 1
-              }}
             >
               <PuzzlePiece 
                 data={item} 
