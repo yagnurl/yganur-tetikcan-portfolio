@@ -46,6 +46,9 @@ export default async function WorksPage() {
       size: project.size || 'small',
       image: imageUrl,
       slug: project.slug?.current || '',
+      hasDetailPage: project.hasDetailPage !== false, // Default to true if not set
+      externalLink: project.externalLink || '',
+      isSoon: project.isSoon || false,
     };
   });
 

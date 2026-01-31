@@ -126,7 +126,8 @@ export default function ProjectClient({ data }: ProjectClientProps) {
                                display: 'inline-flex',
                                alignItems: 'center',
                                gap: '6px',
-                               transition: 'background-color 0.2s'
+                               transition: 'background-color 0.2s',
+                               cursor: 'pointer'
                            }}
                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e5e5e5'}
                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f1f1f1'}

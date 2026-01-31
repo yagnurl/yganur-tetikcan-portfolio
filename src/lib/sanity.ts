@@ -8,7 +8,7 @@ export const client = createClient({
 })
 
 export async function getCards() {
-  const query = `*[_type == "card"] | order(order asc) {
+  const query = `*[_type == "card" && (!defined(visible) || visible == true)] | order(order asc) {
     _id,
     id,
     title,
@@ -19,6 +19,7 @@ export async function getCards() {
     type,
     size,
     order,
+    visible,
     spotifyData,
     instagramData,
     vscoData,
@@ -47,7 +48,10 @@ export async function getProjects() {
     category,
     color,
     size,
-    order
+    order,
+    hasDetailPage,
+    externalLink,
+    isSoon
   }`
   
   return await client.fetch(query)

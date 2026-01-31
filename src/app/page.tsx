@@ -10,7 +10,7 @@ export default async function Home() {
   // Fetch cards from Sanity
   const sanityCards = await getCards();
   
-  // Transform Sanity cards: convert image objects to URLs
+  // Transform Sanity cards: convert image objects to URLs and filter visible cards
   const transformedCards = sanityCards?.map((card: any) => {
     if (card.image && typeof card.image === 'object') {
       return {
@@ -19,10 +19,10 @@ export default async function Home() {
       };
     }
     return card;
-  });
+  }).filter((card: any) => card.visible !== false); // Filter out cards where visible is explicitly false
   
   // Use Sanity data if available, otherwise fallback to local data
-  const cards = transformedCards && transformedCards.length > 0 ? transformedCards : puzzleData;
+  const cards = transformedCards && transformedCards.length > 0 ? transformedCards : puzzleData.filter(card => card.visible !== false);
   
   return <Portfolio initialData={cards} />;
 }

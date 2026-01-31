@@ -12,6 +12,7 @@ export interface PuzzlePieceData {
   isEmpty?: boolean;
   type?: 'default' | 'spotify' | 'instagram' | 'project-link' | 'ephesus' | 'vsco' | 'contact' | 'project-item' | 'text-scroller';
   size: CardSize; 
+  visible?: boolean;
   spotifyData?: {
     song: string;
     artist: string;
@@ -36,6 +37,9 @@ export interface PuzzlePieceData {
   showArrow?: boolean;
   slug?: string;
   image?: string;
+  hasDetailPage?: boolean;
+  externalLink?: string;
+  isSoon?: boolean;
 }
 
 export type CardData = PuzzlePieceData;

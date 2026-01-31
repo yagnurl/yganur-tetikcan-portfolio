@@ -96,6 +96,9 @@ export default function PuzzlePiece({
   }, [isHovered, data.hoverImages]);
 
   const isProjectItem = data.type === 'project-item' && data.image && !data.hoverImages;
+  const hasNoDetailPage = data.hasDetailPage === false;
+  const isSoon = data.isSoon === true;
+  const [imageLoaded, setImageLoaded] = React.useState(false);
 
   return (
     <div 
@@ -109,8 +112,10 @@ export default function PuzzlePiece({
         color: textColor,
         fontFamily: fontFamily,
         fontWeight: fontWeight,
-        cursor: (data.hoverImages || data.type === 'project-item' || data.type === 'project-link' || data.type === 'contact' || data.type === 'instagram' || data.type === 'vsco') ? 'pointer' : 'default',
-        overflow: 'visible'
+        cursor: (isSoon) ? 'default' : ((data.hoverImages || data.type === 'project-item' || data.type === 'project-link' || data.type === 'contact' || data.type === 'instagram' || data.type === 'vsco') ? 'pointer' : 'default'),
+        overflow: 'visible',
+        boxSizing: 'border-box',
+       
       }}
     >
         <div
@@ -122,9 +127,10 @@ export default function PuzzlePiece({
             backgroundColor: activeBgColor,
             border: borderStyle,
             position: 'relative',
-            overflow: isProjectItem ? 'hidden' : (data.hoverImages ? 'visible' : 'hidden'),
+            overflow: 'hidden',
             zIndex: 1,
-            transition: 'background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1)' // Smoother, longer transition
+            transition: 'background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1)', // Smoother, longer transition
+            cursor: 'pointer'
           }}
         >
             {isSpotify && (
@@ -137,34 +143,70 @@ export default function PuzzlePiece({
             {/* Static Image for project-item type */}
             {data.type === 'project-item' && data.image && !data.hoverImages && (
               <>
-                <img 
-                  src={data.image} 
-                  alt={data.title || ''} 
-                  className={styles.projectItemImage}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    zIndex: 0,
-                    display: 'block'
-                  }}
-                />
+                {/* Background image - only show if card has detail page */}
+                {!hasNoDetailPage && (
+                  <img 
+                    src={data.image} 
+                    alt={data.title || ''} 
+                    className={styles.projectItemImage}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      zIndex: 0,
+                      display: 'block'
+                    }}
+                  />
+                )}
+                {/* Glass effect background for cards without detail page */}
+                {hasNoDetailPage && data.image && (
+                  <>
+                    <div 
+                      className={styles.glassBackground}
+                      style={{
+                        backgroundImage: `url(${data.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                    <div className={styles.glassOverlay} />
+                  </>
+                )}
                 {/* Title overlay */}
                 {data.title && (
                   <div className={styles.projectItemTitle}>
                     {data.title}
                   </div>
                 )}
+                {/* Coming Soon badge */}
+                {isSoon && (
+                  <div className={styles.comingSoonBadge}>
+                    Coming soon
+                  </div>
+                )}
                 {/* Arrow button - top right, visible on hover */}
-                <button className={styles.projectItemArrowBtn}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </button>
+                {!isSoon && (
+                  <button className={styles.projectItemArrowBtn}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </button>
+                )}
+                {/* Image Popover for cards without detail page - shown on page load */}
+                {hasNoDetailPage && data.image && (
+                  <div className={`${styles.hoverPopover} ${styles.hoverPopoverVisible}`}>
+                    <img 
+                      src={data.image} 
+                      alt={data.title || ''} 
+                      className={styles.hoverPopoverImage}
+                    />
+                  </div>
+                )}
               </>
             )}
 
@@ -338,13 +380,7 @@ export default function PuzzlePiece({
                         if (bg) bg.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
                       }}
                     >
-                      <div className={styles.contactBg} style={{
-                        position: 'absolute',
-                        inset: 0,
-                        zIndex: 0,
-                        transition: 'transform 0.1s ease-out',
-                        willChange: 'transform'
-                      }}>
+                      <div className={styles.contactBg}>
                         <DotGrid color="#c0c0c0" cellSize={32} radius={1} />
                       </div>
                       <div className={styles.contactHeader}>

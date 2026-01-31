@@ -100,9 +100,14 @@ export default function PuzzleBoard({ initialData }: PuzzleBoardProps) {
         {items.map((item, index) => {
           const isWide = item.size === 'wide';
           const isTall = item.size === 'tall';
+          const isDragged = draggedId === item.id;
+
+          // Responsive grid spans
+          // On mobile (single column), all cards span 1 column
+          // On tablet (2 columns), wide cards span 2, others span 1
+          // On desktop (3-4 columns), wide cards span 2, tall cards span 2 rows, others span 1
           const colSpan = isWide ? 'span 2' : 'span 1';
           const rowSpan = isTall ? 'span 2' : 'span 1';
-          const isDragged = draggedId === item.id;
 
           return (
             <motion.div 
@@ -122,6 +127,7 @@ export default function PuzzleBoard({ initialData }: PuzzleBoardProps) {
                   width: '100%',
                   cursor: 'pointer'
                }}
+               initial={false}
                drag
                dragConstraints={boardRef}
                dragSnapToOrigin

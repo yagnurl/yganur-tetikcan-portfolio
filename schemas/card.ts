@@ -92,6 +92,13 @@ export const cardSchema = defineType({
       type: 'number',
       validation: Rule => Rule.required().min(0),
     }),
+    defineField({
+      name: 'visible',
+      title: 'Visible',
+      type: 'boolean',
+      description: 'Show this card on the homepage',
+      initialValue: true,
+    }),
     // Spotify Data
     defineField({
       name: 'spotifyData',

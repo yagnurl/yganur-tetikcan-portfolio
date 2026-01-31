@@ -97,6 +97,14 @@
   margin-bottom: 8px;
   color: #1a1a1a;
   letter-spacing: -0.02em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .companyName {
+    font-size: 1.4rem;
+  }
 }
 
 .role {
@@ -104,6 +112,14 @@
   font-weight: 600;
   color: #666;
   margin-bottom: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .role {
+    font-size: 0.95rem;
+  }
 }
 
 .dateRange {
@@ -133,6 +149,14 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: #1a1a1a;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .projectName {
+    font-size: 1rem;
+  }
 }
 
 .techStack {
@@ -152,6 +176,17 @@
 }
 
 @media (max-width: 768px) {
+  .modalOverlay {
+    padding: 20px 16px;
+  }
+  
+  .closeButton {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+  
   .timelineLine {
     left: 20px;
   }
@@ -159,13 +194,31 @@
   .experienceItem, .experienceItem:nth-child(even) {
     flex-direction: row;
     padding-left: 50px;
+    margin-bottom: 60px;
   }
   
   .experienceContent {
     width: 100%;
+    padding: 24px;
   }
   
   .experienceYear {
     left: 20px;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modalOverlay {
+    padding: 16px 12px;
+  }
+  
+  .experienceContent {
+    padding: 20px;
+  }
+  
+  .experienceItem {
+    margin-bottom: 50px;
   }
 }

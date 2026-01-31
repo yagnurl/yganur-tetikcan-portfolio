@@ -76,6 +76,21 @@ export default defineType({
       name: 'link',
       title: 'Project Link',
       type: 'url',
+      description: 'Link to the project (shown on detail page)',
+    }),
+    defineField({
+      name: 'hasDetailPage',
+      title: 'Has Detail Page',
+      type: 'boolean',
+      description: 'If true, clicking the card goes to detail page. If false, goes to external link.',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'externalLink',
+      title: 'External Link',
+      type: 'url',
+      description: 'External link to open when hasDetailPage is false',
+      hidden: ({document}) => document?.hasDetailPage !== false,
     }),
     defineField({
       name: 'publishedAt',
@@ -127,6 +142,13 @@ export default defineType({
       title: 'Order (for Works page)',
       type: 'number',
       description: 'Display order on the Works page',
+    }),
+    defineField({
+      name: 'isSoon',
+      title: 'Coming Soon',
+      type: 'boolean',
+      description: 'If true, the project is not ready yet. Card will not be clickable and will show "Coming soon" badge.',
+      initialValue: false,
     }),
   ],
   preview: {
