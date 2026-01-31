@@ -149,15 +149,15 @@ export default function WorksClient({ worksData }: WorksClientProps) {
                   window.open(item.externalLink, '_blank', 'noopener,noreferrer');
                 }
               }}
-              drag
-              dragConstraints={boardRef}
-              dragSnapToOrigin
-              dragElastic={0}
-              dragMomentum={false}
-              dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-              onDragStart={() => handleDragStart(item.id)}
-              onDrag={(e: any, info: any) => handleDrag(e, info, item)}
-              onDragEnd={handleDragEnd}
+              drag={!isMobile}
+              dragConstraints={!isMobile ? boardRef : undefined}
+              dragSnapToOrigin={!isMobile}
+              dragElastic={!isMobile ? 0 : undefined}
+              dragMomentum={!isMobile ? false : undefined}
+              dragTransition={!isMobile ? { bounceStiffness: 600, bounceDamping: 20 } : undefined}
+              onDragStart={!isMobile ? () => handleDragStart(item.id) : undefined}
+              onDrag={!isMobile ? (e: any, info: any) => handleDrag(e, info, item) : undefined}
+              onDragEnd={!isMobile ? handleDragEnd : undefined}
               whileDrag={{ 
                 scale: 1.05,
                 zIndex: 1000,

@@ -1,9 +1,10 @@
+import { PanInfo, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { motion, PanInfo } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import styles from './PuzzleBoard.module.css';
+
 import PuzzlePiece from './PuzzlePiece';
 import { PuzzlePieceData } from '@/data/cardData';
+import styles from './PuzzleBoard.module.css';
+import { useRouter } from 'next/navigation';
 
 interface PuzzleBoardProps {
   initialData: PuzzlePieceData[];
